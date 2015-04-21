@@ -1,0 +1,123 @@
+
+body {
+    margin: 0;
+    overflow-x: hidden;
+    font-size: 16px;
+}
+label {
+    font-size: 20px;
+}
+body * {z-index: 100;}
+.form-horizontal{
+    background-color: white;
+    padding: 20px;
+    border: 1px solid lightgray;
+    box-shadow: 0 0 15px 0 rgba(0,0,0,0.75);
+    border-radius: 20px;
+    width: 300px;
+    margin: 100px auto;
+}
+#loginForm {width: 600px;}
+#regForm {width: 650px;
+    display: none;}
+.form-group .form-control {
+    margin-bottom: 10px;
+}
+.form-group .btn {
+    font-size: 20px;
+    padding: 15px 25px;
+    float: right;
+    margin-right: 10px;
+    margin-top: 15px;
+}
+.row:first-of-type {
+    text-align: center;
+}
+section {
+    margin: 10px;
+    border: 1px solid lightgray;
+    box-shadow: 0 0 3px 0 rgba(69, 69, 69, 0.75);
+}
+main {
+    padding: 20px;
+    border: 1px solid lightgray;
+    box-shadow: 0 0 15px 0 rgba(0,0,0,0.75);
+    border-radius: 20px;
+    width: 750px;
+    margin: 50px auto;
+    display: none;
+}
+#usersSection{
+    float: left;
+    height: 300px;
+    width: 200px;
+}
+#chatSection
+{
+    height: 300px;
+    width: 500px;
+    overflow: scroll;
+}
+#sendSection{
+    margin: 10px;
+    height: 100px;
+    width: 200px;
+}
+#sendSection>*
+{
+    top: 35%;
+
+    position: relative;
+    -webkit-transform: translateY(-35%);
+    -ms-transform: translateY(-35%);
+    transform: translateY(-35%);
+}
+#inputSection
+{
+    padding: 10px;
+    height: 100px;
+    width: 500px;
+}
+#aboutPanel {
+    background-color: lightskyblue;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    display: inline-block;
+    padding: 10px;
+    left: 100px;
+    position: absolute;
+    top: -35px;
+}
+#secretKitten{
+    background-image: url("../large.jpg");
+    border: 1px solid transparent;
+    border-radius: 10px;
+    display: inline-block;
+    padding: 15px;
+    left: -365px;
+    position: absolute;
+    top: 200px;
+    width: 375px;
+    height: 235px;
+    z-index: 0;
+}
+#smilesMenu ul li {
+    cursor: pointer;
+    padding: 10px 0;
+}
+#smilesMenu {
+    background-color: #f5f5f5;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    display: none;
+    padding: 15px;
+    right: -160px;
+    position: absolute;
+    top: 200px;
+    width: 180px;
+    z-index: 0;
+}
+.vertical-text {
+    transform: rotate(90deg);
+    transform-origin: left top 0;
+}

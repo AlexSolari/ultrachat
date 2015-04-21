@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=0.45">
+    <meta http-equiv="Cache-Control" content="max-age=3600, must-revalidate" />
+    
+    <title>ULTRACHAT</title>
+
+    <script src="js/jquery-1.11.2.min.js"></script>
+    <script src="js/jquery-ui.js"></script>
+
+    <script src="http://localhost:80/socket.io/socket.io.js"></script>
+    <script src="js/main.js"></script>
+    <link rel="stylesheet" href="styles/bootstrap.min.css">
+    <link rel="stylesheet" href="styles/jquery-ui.css">
+    <link rel="stylesheet" href="styles/style.css">
+
+
+</head>
+<body>
+<div id="aboutPanel">Coded by Solari, 2015.</div>
+
+<div id="secretKitten">Hoho! A secret kitten!</div>
+
+<form class="form-horizontal" id="loginForm">
+    <fieldset>
+        <legend>Login</legend>
+        <div class="form-group">
+            <label for="inputLogin" class="col-lg-2 control-label">Login</label>
+            <div class="col-lg-10">
+                <input type="text" class="form-control" id="inputLogin" placeholder="Login">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inputPassword" class="col-lg-2 control-label">Password</label>
+            <div class="col-lg-10">
+                <input type="password" class="form-control" id="inputPassword" placeholder="Password">
+                <a href="#" class="btn btn-default" id="gotoReg">Registration</a>
+                <a href="#" class="btn btn-primary" id="loginBtn">Login</a>
+            </div>
+        </div>
+    </fieldset>
+</form>
+
+<form class="form-horizontal" id="regForm">
+    <fieldset>
+        <legend>Registration</legend>
+        <div class="form-group">
+            <label for="inputloginRegister" class="col-lg-2 control-label" >Login*</label>
+            <div class="col-lg-10">
+                <input type="text" class="form-control" id="inputLoginRegister" placeholder="Login">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inputEmailRegister" class="col-lg-2 control-label">Email*</label>
+            <div class="col-lg-10">
+                <input type="email" class="form-control" id="inputEmailRegister" placeholder="Email">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inputEmailRegisterConfirm" class="col-lg-2 control-label">Email confirm*</label>
+            <div class="col-lg-10">
+                <input type="email" class="form-control" id="inputEmailRegisterConfirm" placeholder="Email confirm">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inputPasswordRegister" class="col-lg-2 control-label">Region</label>
+            <div class="col-lg-10">
+                <input class="form-control" id="inputRegionRegister" placeholder="Start typing your region here">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inputPasswordRegister" class="col-lg-2 control-label">Password*</label>
+            <div class="col-lg-10">
+                <input type="password" class="form-control" id="inputPasswordRegister" placeholder="Password">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="inputPasswordRegisterConfirm" class="col-lg-2 control-label">Password confirm*</label>
+            <div class="col-lg-10">
+                <input type="password" class="form-control" id="inputPasswordRegisterConfirm" placeholder="Password">
+                <a href="#" class="btn btn-default" id="regCancel">Cancel</a>
+                <a href="#" class="btn btn-primary" id="regBtn">Registration</a>
+            </div>
+        </div>
+    </fieldset>
+</form>
+
+<main>
+    <div class="row">
+        <h3>ULTRACHAT</h3>
+    </div>
+    <div class="row">
+        <section class="leftInTable" id="usersSection">
+            <ul id="users">
+            </ul>
+        </section>
+        <section class="leftInTable" id="chatSection"></section>
+    </div>
+    <div class="row">
+        <a href="#" class="rightInTable btn btn-default" id="sendSection"><span>Send</span></a>
+        <input type="text" class="rightInTable" id="inputSection" maxlength="50">
+    </div>
+
+</main>
+
+<div id="smilesMenu">
+    <h6 class="vertical-text">Smiles</h6>
+    <ul>
+        <li>
+            <a>Smiles</a>
+            <ul style="display: block;" class="smilesToAdd">
+                <li>
+                    <a class="happy">Happy</a>
+                </li>
+
+                <li>
+                    <a class="sad">Sad</a>
+                </li>
+                <li>
+                    <a class="crying">Crying</a>
+                </li>
+                <li>
+                    <a class="love">In love</a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a>Pics</a>
+            <ul style="display: none;" class="smilesToAdd">
+                <li>
+                    <a class="illuminati">Illuminati</a>
+                </li>
+                <li>
+                    <a class="weed">Weed</a>
+                </li>
+                <li>
+                    <a class="mlg">MLG</a>
+                </li>
+                <li>
+                    <a class="dota">Dota</a>
+                </li>
+                <li>
+                    <a class="kappa">Kappa</a>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</div>
+
+    
+
+
+</body>
+</html>

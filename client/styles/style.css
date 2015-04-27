@@ -48,6 +48,7 @@ main {
     display: none;
 }
 #usersSection{
+    word-wrap: break-word;
     float: left;
     height: 300px;
     width: 200px;
@@ -120,4 +121,12 @@ main {
 .vertical-text {
     transform: rotate(90deg);
     transform-origin: left top 0;
+}
+.invalid{
+    color: red;
+    text-shadow: 0px 0px 10px red;
+}
+.valid{
+    color: green;
+    text-shadow: 0px 0px 10px green;
 }

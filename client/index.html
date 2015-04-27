@@ -7,15 +7,15 @@
     
     <title>ULTRACHAT</title>
 
-    <script src="js/jquery-1.11.2.min.js"></script>
-    <script src="js/jquery-ui.js"></script>
+    <script src="https://ultrachat-alexsolari.c9.io/js/jquery-1.11.2.min.js"></script>
+    <script src="https://ultrachat-alexsolari.c9.io/js/jquery-ui.js"></script>
 
-    <script src="http://localhost:80/socket.io/socket.io.js"></script>
-    <script src="js/main.js"></script>
-    <link rel="stylesheet" href="styles/bootstrap.min.css">
-    <link rel="stylesheet" href="styles/jquery-ui.css">
-    <link rel="stylesheet" href="styles/style.css">
-
+    <script src="https://ultrachat-alexsolari.c9.io/socket.io/socket.io.js"></script>
+    <script src="https://ultrachat-alexsolari.c9.io/js/main.js"></script>
+    <link rel="stylesheet" href="/styles/bootstrap.min.css">
+    <link rel="stylesheet" href="/styles/jquery-ui.css">
+    <link rel="stylesheet" href="/styles/style.css">
+    <link rel="shortcut icon" href="icon.png" type="image/png">
 
 </head>
 <body>
@@ -29,13 +29,13 @@
         <div class="form-group">
             <label for="inputLogin" class="col-lg-2 control-label">Login</label>
             <div class="col-lg-10">
-                <input type="text" class="form-control" id="inputLogin" placeholder="Login">
+                <input type="text" class="form-control" id="inputLogin" placeholder="Login" maxlength="20">
             </div>
         </div>
         <div class="form-group">
             <label for="inputPassword" class="col-lg-2 control-label">Password</label>
             <div class="col-lg-10">
-                <input type="password" class="form-control" id="inputPassword" placeholder="Password">
+                <input type="password" class="form-control" id="inputPassword" placeholder="Password" maxlength="20">
                 <a href="#" class="btn btn-default" id="gotoReg">Registration</a>
                 <a href="#" class="btn btn-primary" id="loginBtn">Login</a>
             </div>
@@ -49,7 +49,7 @@
         <div class="form-group">
             <label for="inputloginRegister" class="col-lg-2 control-label" >Login*</label>
             <div class="col-lg-10">
-                <input type="text" class="form-control" id="inputLoginRegister" placeholder="Login">
+                <input type="text" class="form-control" id="inputLoginRegister" placeholder="Login" maxlength="20">
             </div>
         </div>
         <div class="form-group">
@@ -73,13 +73,13 @@
         <div class="form-group">
             <label for="inputPasswordRegister" class="col-lg-2 control-label">Password*</label>
             <div class="col-lg-10">
-                <input type="password" class="form-control" id="inputPasswordRegister" placeholder="Password">
+                <input type="password" class="form-control" id="inputPasswordRegister" placeholder="Password" maxlength="20">
             </div>
         </div>
         <div class="form-group">
             <label for="inputPasswordRegisterConfirm" class="col-lg-2 control-label">Password confirm*</label>
             <div class="col-lg-10">
-                <input type="password" class="form-control" id="inputPasswordRegisterConfirm" placeholder="Password">
+                <input type="password" class="form-control" id="inputPasswordRegisterConfirm" placeholder="Password" maxlength="20">
                 <a href="#" class="btn btn-default" id="regCancel">Cancel</a>
                 <a href="#" class="btn btn-primary" id="regBtn">Registration</a>
             </div>

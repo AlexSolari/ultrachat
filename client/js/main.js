@@ -1,4 +1,4 @@
-﻿var Global = {};
+var Global = {};
 function displayMsg(text)
 {
     $("#chatSection").prepend(text);
@@ -8,7 +8,7 @@ function addMsg(text, login, checkHTML)
     if (text.length == 0) return;
     if (checkHTML) 
     {
-	var isNotClear = (/[<,>]/).test(text);
+	var isNotClear = (/[<>]/).test(text);
 	if (isNotClear) 
 	{
 		alert("'<' and '>' are not allowed");
@@ -44,13 +44,33 @@ function addMsg(text, login, checkHTML)
             }
     displayMsg("<i>(" + time.toLocaleTimeString() + ") </i><span><b>"+login+"</b> : "+text+"</span><br>");
 }
-
-function msgTo(user)
-{
-    alert(user);
+function initSocket() {
+    socket.on("msg", function(container)
+    {
+        addMsg(container.text, container.login, container.checkHTML);
+    });
+    socket.on("userConnected", function(login)
+    {
+        var user = document.createElement("li");
+        user.innerHTML = "<strong>"+login+"</strong>";
+        user.id = "user-"+login;
+        $("#users").append(user);
+    });
+    socket.on("userDisconnected", function(login)
+    {
+        $("#user-"+login).remove();
+    });
+    socket.on("sendConnectedUsers", function(connectedUsers) {
+        for(var counter = 0; counter < connectedUsers.length; counter++)
+        {
+            var user = document.createElement("li");
+            user.innerHTML = "<strong>"+connectedUsers[counter]+"</strong>";
+            user.id = "user-"+connectedUsers[counter];
+            $("#users").append(user);
+        }
+    });
+    socket.emit("succesfullyConnected", Global.login);
 }
-
-
 $(function() {
     var regions = [
         "Автономная республика Крым",
@@ -79,23 +99,37 @@ $(function() {
         "Черниговская область",
         "Черновицкая область"
     ];
-    window.socket = io("http://localhost:80");
-    socket.on("msg", function(container)
-    {
-        addMsg(container.text, container.login, container.checkHTML);
+    window.socket = io("https://ultrachat-alexsolari.c9.io");
+    socket.on("loginValidation", function(result){
+        var field = $("#inputLoginRegister");
+        if (field.val().length == 0) {
+            field.removeClass("invalid");
+            field.removeClass("valid");
+            return;
+        }
+        var exp = /^[A-Za-zА-Яа-яЁёІіЄє]+$/;
+        if (result && exp.test(field.val()))
+        {
+            field.removeClass("invalid");
+            field.addClass("valid");
+        }
+        else {
+            field.removeClass("valid");
+            field.addClass("invalid");
+        }
     });
-    socket.on("userConnected", function(login)
-    {
-        var user = document.createElement("li");
-        user.innerHTML = "<strong>"+login+"</strong>";
-        user.id = "user-"+login;
-        $("#users").append(user);
+    socket.on("signInResult", function(result){
+        if (result)
+        {
+            $("#loginForm").stop().slideToggle(500);
+        	$("main").stop().slideToggle(500);
+        	Global.login = $("#inputLogin").val();
+        	$("#self").html("<strong>"+Global.login+"</strong>");
+        	$("#smilesMenu").fadeIn();
+        	initSocket();    
+        }
+        else alert("Wrong login or password");
     });
-    socket.on("userDisconnected", function(login)
-    {
-        $("#user-"+login).remove();
-    });
-
 
     Notification.requestPermission();
     $( "#inputRegionRegister" ).autocomplete({
@@ -104,6 +138,7 @@ $(function() {
     window.onbeforeunload = confirmExit;
     function confirmExit()
     {
+        if (Global.login == undefined) return;
         var container = {
             text : Global.login + " disconnected",
             login : "SERVER",
@@ -126,6 +161,9 @@ $(function() {
             input.val("");
         }
     };
+    $("#inputLoginRegister").on("input", function() {
+       socket.emit("validateLogin", { login: $(this).val() }); 
+    });
     $("#aboutPanel").on("mousemove", function()
     {
         $(this).stop().animate({top: "-10px"}, 500);
@@ -154,13 +192,11 @@ $(function() {
 	        {
 	            if ($("#inputPassword").val().length > 0)
 	            {
-        		$("#loginForm").stop().slideToggle(500);
-        		$("main").stop().slideToggle(500);
-        		Global.login = $("#inputLogin").val();
-        		$("#self").html("<strong>"+Global.login+"</strong>");
-                socket.emit("succesfullyConnected", Global.login);
-        		$("#smilesMenu").fadeIn();
-		    }
+            		socket.emit("signInRequest", {
+            		    login: $("#inputLogin").val(),
+            		    pass: $("#inputPassword").val()
+            		})
+		        }
 		    else alert("Password cant be empty");
         	}
         	else alert("Invalid login");	
@@ -171,30 +207,39 @@ $(function() {
         var exp2 = /^[A-Za-zА-Яа-яЁёІіЄє]+$/;
         if (exp2.test($("#inputLoginRegister").val()))
         {
-            if ($("#inputPasswordRegister").val().length > 0)
+            if ($("#inputLoginRegister").hasClass("valid"))
             {
-                if (exp.test($("#inputEmailRegister").val()))
+                if ($("#inputPasswordRegister").val().length > 0)
                 {
-                    if ($("#inputEmailRegisterConfirm").val() == $("#inputEmailRegister").val())
+                    if (exp.test($("#inputEmailRegister").val()))
                     {
-                        if($("#inputPasswordRegisterConfirm").val() == $("#inputPasswordRegister").val())
+                        if ($("#inputEmailRegisterConfirm").val() == $("#inputEmailRegister").val())
                         {
-                            $("#regForm").stop().slideToggle(500);
-                            $("main").stop().slideToggle(500);
-                            Global.login = $("#inputLoginRegister").val();
-                            socket.emit("succesfullyConnected", Global.login);
-                            $("#smilesMenu").fadeIn();
+                            if($("#inputPasswordRegisterConfirm").val() == $("#inputPasswordRegister").val())
+                            {
+                                $("#regForm").stop().slideToggle(500);
+                                $("main").stop().slideToggle(500);
+                                Global.login = $("#inputLoginRegister").val();
+                                $("#smilesMenu").fadeIn();
+                                socket.emit("addUsetToDB", {
+                                    login: $("#inputLoginRegister").val(),
+                                    mail: $("#inputEmailRegister").val(),
+                                    region: $("#inputRegionRegister").val(),
+                                    pass: $("#inputPasswordRegister").val()
+                                });
+                                initSocket();
+                            }
+                            else alert("Passwords are not match");
                         }
-                        else alert("Passwords are not match");
+                        else alert("Mails are not match");
                     }
-                    else alert("Mails are not match");
+                    else alert("Invalid mail");
                 }
-                else alert("Invalid mail");
+                else alert("Password cant be empty");
             }
-            else alert("Password cant be empty");
-        }
-        else alert("Invalid login");
-
+            else alert("This username is already taken");
+        } else alert("Invalid login");
+        
 
     });
     $("#gotoReg").click(function ()
